@@ -10,12 +10,10 @@ public class DepartmentNews extends GeneralNews {
         this.type=NEWS_TYPE;
     }
 
-    @Override
     public int getDepartment_id() {
         return department_id;
     }
 
-    @Override
     public void setDepartment_id(int departmentId) {
         this.department_id = department_id;
     }

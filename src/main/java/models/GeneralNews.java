@@ -17,7 +17,7 @@ public class GeneralNews {
         this.user_id=user_id;
     }
 
-    public static int getId() { return id; }
+    public int getId() { return id; }
 
     public void setId(int id) {
         this.id = id;
