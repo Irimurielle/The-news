@@ -1,0 +1,32 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-image:url("/images/image.jpg");
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.indexRow {
+  padding: 16px;
+  background-color: grey;
+}
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+a {
+  color: dodgerblue;
+}
