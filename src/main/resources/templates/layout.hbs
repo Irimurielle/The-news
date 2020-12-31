@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{#block "title"}}Organisational News Portal{{/block}}</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <Link rel='stylesheet' href='/css/app.css'>
+</head>
+<body>
+<nav class="navbar navbar-light" style="background-color: grey;">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" type="none">
+            <li class="nav-item active"><a class="btn btn-outline-success active" type="button" href="/">Home<span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a class="btn btn-outline-success" type="button" href="/users/new">User</a></li>
+            <li class="nav-item"><a class="btn btn-outline-success" type="button" href="/departments/new">Department</a></li>
+            <li class="nav-item"><a class="btn btn-outline-success" type="button" href="/generalnews/new">News</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="main-content">
+    {{#block "content"}}
+    {{/block}}
+
+</div>
+
+
+{{#block "footer"}}
+    </body>
+    </html>
+{{/block}}

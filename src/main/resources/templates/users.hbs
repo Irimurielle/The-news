@@ -1,0 +1,22 @@
+{{#partial "content"}}
+    <div class="container">
+        <div class="indexRow">
+            <div class="col-md-12 mb-4 white-text text-center">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4 users">
+                        <h3 class="text-center">Users:</h3>
+                            {{#if users}}
+                                {{#each users as |l|}}
+                                    <h5>{{l.name}}</h5>
+                                    <p>{{l.role}}</p>
+                                    <p>{{l.position}}
+                                {{/each}}
+                            {{/if}}
+                        <a href="/users/new"><button type="button" class="registerbtn">Add User</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/partial}}
+{{> layout.hbs}}

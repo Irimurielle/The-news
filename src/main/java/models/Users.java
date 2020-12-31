@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Users {
 
-    private int id;
+    private static int id;
     private String name;
     private String role;
     private String position;
@@ -25,7 +25,7 @@ public class Users {
         this.department_id=department_id;
     }
 
-    public int getId() {
+    public static int getId() {
         return id;
     }
 

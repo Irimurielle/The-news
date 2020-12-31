@@ -3,7 +3,7 @@ package models;
 import java.util.Objects;
 
 public class GeneralNews {
-    public int id;
+    public static int id;
     public String title;
     public String content;
     public String type;
@@ -17,7 +17,7 @@ public class GeneralNews {
         this.user_id=user_id;
     }
 
-    public int getId() { return id; }
+    public static int getId() { return id; }
 
     public void setId(int id) {
         this.id = id;

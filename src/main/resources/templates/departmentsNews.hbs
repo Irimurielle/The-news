@@ -1,0 +1,29 @@
+{{#partial "content"}}
+    <div class="container">
+        <div class="indexRow">
+            <div class="col-md-12 mb-4 white-text text-center">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4 departmentnews">
+                        <h3 class="text-center">Department News:</h3>
+                            {{#if departmentnews}}
+                                {{#each departmentnews as |e|}}
+                                    <h3>{{e.title}}</h3>
+                                    <p>{{e.content}}</p>
+                                {{/each}}
+                                <h3>User</h3>
+                                {{#each users as |u|}}
+                                    <p>{{u}}</p>
+                                {{/each}}
+                                <h3>Department</h3>
+                                {{#each departments as |b|}}
+                                    <p>{{b}}</p>
+                                {{/each}}
+                            {{/if}}
+                        <a href="/departmentnews/new"><button type="button" class="registerbtn">Post News</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/partial}}
+{{> layout.hbs}}
