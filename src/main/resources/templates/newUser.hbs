@@ -16,17 +16,6 @@
                 <label for="position"><b>Position</b></label>
                 <input type="position" placeholder="Enter Position" name="position" id="position" required>
             </div>
-            <div class="form-group">
-                <label for="department"><b>Department</b></label>
-                <select class="custom-select" id="department" name="department">
-                    <option selected>Choose</option>
-                        {{#if departments}}
-                            {{#each departments as |l|}}
-                                <option name="department" value={{l.id}}>{{l.name}}</option>
-                            {{/each}}
-                        {{/if}}
-                </select>
-            </div>
             <hr>
 
             <button type="submit" class="registerbtn">Register</button>

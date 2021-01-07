@@ -17,6 +17,12 @@ public class GeneralNews {
         this.user_id=user_id;
     }
 
+    public GeneralNews(String title,String content) {
+        this.title = title;
+        this.content = content;
+        this.type=NEWS_TYPE;
+    }
+
     public static int getId() { return id; }
 
     public void setId(int id) {
