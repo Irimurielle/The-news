@@ -9,6 +9,17 @@ public class DepartmentNews extends GeneralNews {
         this.department_id = department_id;
         this.type=NEWS_TYPE;
     }
+    public DepartmentNews(String title, String content) {
+        super(content, title);
+        this.department_id = department_id;
+        this.type=NEWS_TYPE;
+    }
+
+    @Override
+    public int getUser_id() { return user_id; }
+
+    @Override
+    public void setUser_id(int employee_id) { this.user_id = user_id; }
 
     public int getDepartment_id() {
         return department_id;

@@ -29,7 +29,7 @@ public class App {
         Gson gson = new Gson();
 
         String connectionString = "jdbc:postgresql://localhost:5432/the_news";
-        Sql2o sql2o = new Sql2o(connectionString, "murielle", "murielle12");
+        Sql2o sql2o = new Sql2o(connectionString, "wecode", "1234");
 
         sql2oDepartmentDao = new Sql2oDepartmentDao(sql2o);
         sql2oUserDao = new Sql2oUserDao(sql2o);
@@ -46,18 +46,20 @@ public class App {
             return new ModelAndView(model,"index.hbs");
         },new HandlebarsTemplateEngine());
 
-        get("/departments/new",(request, response) -> {
-            Map<String,Object> model=new HashMap<>();
+        get("/create/department",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
             return new ModelAndView(model,"newDepartment.hbs");
         },new HandlebarsTemplateEngine());
 
-        post("/departments",(request, response) -> {
+        post("/create/department/new",(request, response) -> {
             Map<String,Object> model=new HashMap<String, Object>();
             String name=request.queryParams("name");
             String description=request.queryParams("description");
             String size=request.queryParams("size");
             Departments department=new Departments(name,description);
-            sql2oDepartmentDao.add( department);
+            sql2oDepartmentDao.add(department);
+            request.session().attribute("item", name);
+            model.put("item", request.session().attribute("item"));
             return new ModelAndView(model,"newDepartment.hbs");
         },new HandlebarsTemplateEngine());
 
@@ -80,7 +82,7 @@ public class App {
                 return gson.toJson(sql2oDepartmentDao.getAll());
             }
             else {
-                return "{\"message\":\"Sorry, No departments .\"}";
+                return "{\"message\":\"Sorry, there are no registered departments .\"}";
             }
         });
 
@@ -105,7 +107,7 @@ public class App {
             }
         });
 
-        get("/departmentnews/department/:id","application/json",(request, response) -> {
+        get("/news/department/:id","application/json",(request, response) -> {
 
             int id=Integer.parseInt(request.params("id"));
             Departments departments=sql2oDepartmentDao.findById(id);
@@ -121,24 +123,26 @@ public class App {
             }
         });
 
-        get("/users/new",(request, response) -> {
-            Map<String,Object> model=new HashMap<>();
+        get("/create/users",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
             model.put("departments",sql2oDepartmentDao.getAll());
             return new ModelAndView(model,"newUser.hbs");
         },new HandlebarsTemplateEngine());
 
-        post("/users",(request, response) -> {
-            Map<String,Object> model=new HashMap<>();
+        post("/create/users/new",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
             String name=request.queryParams("name");
             String position=request.queryParams("position");
             String role=request.queryParams("role");
             Users user = new Users(name,position,role);
             sql2oUserDao.add( user);
+            request.session().attribute("item", name);
+            model.put("item", request.session().attribute("item"));
             return new ModelAndView(model,"newUser.hbs");
         },new HandlebarsTemplateEngine());
 
         get("/view/users",(request, response) -> {
-            Map<String,Object> model=new HashMap<>();
+            Map<String,Object> model=new HashMap<String, Object>();
             model.put("users",sql2oUserDao.getAll());
             model.put("departments",sql2oDepartmentDao.getAll());
             return new ModelAndView(model,"users.hbs");
@@ -152,7 +156,6 @@ public class App {
         });
 
         post("/add/user/:user_id/department/:department_id","application/json",(request, response) -> {
-
             int user_id=Integer.parseInt(request.params("user_id"));
             int department_id=Integer.parseInt(request.params("department_id"));
             Departments departments=sql2oDepartmentDao.findById(department_id);
@@ -163,14 +166,14 @@ public class App {
             }
             if(users==null){
                 throw new ApiException(404, String.format("No user with id: \"%s\" exists",
-                        request.params("user_id")));
+                        request.params("employee_id")));
             }
             sql2oDepartmentDao.addUserToDepartment(users,departments);
 
-            List<Users> departmentUsers=sql2oDepartmentDao.getAllUsersInDepartment(departments.getId());
+            List<Users> departmentEmmployees=sql2oDepartmentDao.getAllUsersInDepartment(departments.getId());
 
             response.status(201);
-            return gson.toJson(departmentUsers);
+            return gson.toJson(departmentEmmployees);
         });
 
 
@@ -181,7 +184,7 @@ public class App {
                 return gson.toJson(sql2oUserDao.getAll());
             }
             else {
-                return "{\"message\":\"No users in the database.\"}";
+                return "{\"message\":\"I'm sorry, there are no users currently in the database.\"}";
             }
         });
 
@@ -191,7 +194,7 @@ public class App {
                 return gson.toJson(sql2oUserDao.getAllUsersByDepartment(id));
             }
             else {
-                return "{\"message\":\"User is in no department.\"}";
+                return "{\"message\":\"I'm sorry, but this user is in no department.\"}";
             }
         });
 
@@ -206,18 +209,20 @@ public class App {
             }
         });
 
-        get("/generalnews/new",(request, response) -> {
+        get("/create/generalnews",(request, response) -> {
             Map<String,Object> model=new HashMap<String, Object>();
             model.put("users",sql2oUserDao.getAll());
             return new ModelAndView(model,"newGeneralNews.hbs");
         },new HandlebarsTemplateEngine());
 
-        post("/generalnews",(request, response) -> {
+        post("/create/generalnews/new",(request, response) -> {
             Map<String,Object> model=new HashMap<String, Object>();
             String title=request.queryParams("title");
             String content=request.queryParams("content");
-            GeneralNews generalnews=new GeneralNews(title,content);
+            GeneralNews generalnews=new GeneralNews(title, content);
             sql2oGeneralNewsDao.addGeneralNews(generalnews);
+            request.session().attribute("item", title);
+            model.put("item", request.session().attribute("item"));
             return new ModelAndView(model,"newGeneralNews.hbs");
         },new HandlebarsTemplateEngine());
 
@@ -228,19 +233,21 @@ public class App {
             return new ModelAndView(model,"generalNews.hbs");
         },new HandlebarsTemplateEngine());
 
-        post("/create/generalnews","application/json",(request, response) -> {
-            GeneralNews generalnews =gson.fromJson(request.body(), GeneralNews.class);
+
+        post("/generalnews/new/general","application/json",(request, response) -> {
+            GeneralNews generalnews =gson.fromJson(request.body(),GeneralNews.class);
             sql2oGeneralNewsDao.addGeneralNews(generalnews);
             response.status(201);
             return gson.toJson(generalnews);
         });
 
-        get("/generalnews/news","application/json",(request, response) -> {
+
+        get("/generalnews/general","application/json",(request, response) -> {
             if(sql2oGeneralNewsDao.getAll().size()>0){
                 return gson.toJson(sql2oGeneralNewsDao.getAll());
             }
             else {
-                return "{\"message\":\"No news.\"}";
+                return "{\"message\":\"I'm sorry, but no news are currently listed in the database.\"}";
             }
         });
 
@@ -255,22 +262,22 @@ public class App {
             }
         });
 
-        get("/departmentnews/new",(request, response) -> {
+        get("/create/departmentnews",(request, response) -> {
             Map<String,Object> model=new HashMap<String, Object>();
             model.put("users",sql2oUserDao.getAll());
             model.put("departments",sql2oDepartmentDao.getAll());
             return new ModelAndView(model,"newDepartmentNews.hbs");
         },new HandlebarsTemplateEngine());
 
-        post("departmentnews",(request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
-            String title = request.queryParams("title");
-            String content = request.queryParams("content");
-            int userid = Integer.parseInt(request.params("user"));
-            int departmentId = Integer.parseInt(request.params("department"));
-            DepartmentNews departmentnews = new DepartmentNews(title, content, userid, departmentId);
+        post("/create/departmentnews/new",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            String title=request.queryParams("title");
+            String content=request.queryParams("content");
+            DepartmentNews departmentnews=new DepartmentNews(title, content);
             sql2oDepartmentNewsDao.addDepartmentNews(departmentnews);
-            return new ModelAndView(model, "newDepartmentNews.hbs");
+            request.session().attribute("item", title);
+            model.put("item", request.session().attribute("item"));
+            return new ModelAndView(model,"newDepartmentNews.hbs");
         },new HandlebarsTemplateEngine());
 
         get("/view/departmentnews",(request, response) -> {
@@ -281,21 +288,22 @@ public class App {
             return new ModelAndView(model,"departmentNews.hbs");
         },new HandlebarsTemplateEngine());
 
-        post("/create/departmentnews","application/json",(request, response) -> {
-            DepartmentNews departmentNews =gson.fromJson(request.body(),DepartmentNews.class);
-            Departments department=sql2oDepartmentDao.findById(departmentNews.getDepartment_id());
-            Users user=sql2oUserDao.findById(departmentNews.getUser_id());
-            if(department==null){
+
+        post("/departmentnews/new/department","application/json",(request, response) -> {
+            DepartmentNews department_news =gson.fromJson(request.body(),DepartmentNews.class);
+            Departments departments=sql2oDepartmentDao.findById(department_news.getDepartment_id());
+            Users users=sql2oUserDao.findById(department_news.getUser_id());
+            if(departments==null){
                 throw new ApiException(404, String.format("No department with the id: \"%s\" exists",
                         request.params("id")));
             }
-            if(user==null){
+            if(users==null){
                 throw new ApiException(404, String.format("No employee with the id: \"%s\" exists",
                         request.params("id")));
             }
-            sql2oDepartmentNewsDao.addDepartmentNews(departmentNews);
+            sql2oDepartmentNewsDao.addDepartmentNews(department_news);
             response.status(201);
-            return gson.toJson(departmentNews);
+            return gson.toJson(department_news);
         });
 
         get("/departmentnews/:id", "application/json", (request, response) -> {

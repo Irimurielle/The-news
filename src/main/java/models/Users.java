@@ -2,7 +2,7 @@ package models;
 
 import java.util.Objects;
 
-public class User {
+public class Users {
 
     private static int id;
     private String name;
@@ -10,7 +10,7 @@ public class User {
     private String position;
     private int department_id;
 
-    public User(String name, String role, String position){
+    public Users(String name, String role, String position){
         this.name = name;
         this.position = position;
         this.role = role;
@@ -18,7 +18,7 @@ public class User {
         this.department_id = department_id;
     }
 
-    public User(String name, String role, String position, int department_id){
+    public Users(String name, String role, String position, int department_id){
         this.name=name;
         this.role=role;
         this.position=position;
@@ -63,7 +63,7 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        Users user = (Users) o;
         return id == user.id &&
                 department_id == user.department_id &&
                 Objects.equals(name, user.name) &&

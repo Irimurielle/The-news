@@ -5,7 +5,7 @@ import models.*;
 import java.util.List;
 
 public interface UserDao {
-    void add(Users users);
+    void add(Users user);
 
     List<Users> getAll();
     Users findById(int id);

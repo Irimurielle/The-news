@@ -13,14 +13,14 @@ public class Sql2oUserDao implements UserDao {
     public Sql2oUserDao(Sql2o sql2o) { this.sql2o = sql2o; }
 
     @Override
-    public void add(Users users) {
+    public void add(Users user) {
         String sql = "INSERT INTO users (name, role, position) VALUES (:name, :role, :position)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
-                    .bind(users)
+                    .bind(user)
                     .executeUpdate()
                     .getKey();
-            users.setId(id);
+            user.setId(id);
         } catch (Sql2oException ex) {
             System.out.println(ex);
         }
@@ -45,7 +45,7 @@ public class Sql2oUserDao implements UserDao {
 
     @Override
     public List<Departments> getAllUsersByDepartment(int user_id) {
-        List<Departments> departments=new ArrayList<>();
+        List<Departments> department=new ArrayList<>();
         try (Connection con=sql2o.open()) {
             String sql = "SELECT department_id FROM users_departments WHERE user_id=:user_id";
             List<Integer> department_ids = con.createQuery(sql)
@@ -54,13 +54,13 @@ public class Sql2oUserDao implements UserDao {
 
             for (Integer id : department_ids) {
                 String userResults = "SELECT * FROM departments WHERE id=:id";
-                departments.add(con.createQuery(userResults)
+                department.add(con.createQuery(userResults)
                         .addParameter("id", id)
                         .executeAndFetchFirst(Departments.class));
 
             }
 
-            return departments;
+            return department;
         }
     }
 
