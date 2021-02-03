@@ -7,12 +7,12 @@
                         <h3 class="text-center">Users:</h3>
                             {{#if users}}
                                 {{#each users as |l|}}
-                                    <h5>{{l.name}}</h5>
-                                    <p>{{l.role}}</p>
-                                    <p>{{l.position}}
+                                    <h4 id={{l.id}}>{{l.name}}</h4>
+                                    <p id={{l.id}}>{{l.role}}</p>
+                                    <p id={{l.id}}>{{l.position}}</p>
                                 {{/each}}
                             {{/if}}
-                        <a href="/users/new"><button type="button" class="registerbtn">Add User</button></a>
+                        <a href="/create/users"><button type="button" class="registerbtn">Add User</button></a>
                     </div>
                 </div>
             </div>

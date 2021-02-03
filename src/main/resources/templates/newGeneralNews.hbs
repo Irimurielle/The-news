@@ -1,22 +1,42 @@
 {{#partial "content"}}
-<div style="background-image:/images/image.jpg">
-    <form action="/generalnews" method="post">
-        <div class="container">
+    <div class="container">
+        <form action="/create/generalnews/new" method="post">
             <h1>Register</h1>
             <p>Please fill in this form to post some news.</p>
-            <p><a href="/departmentnews/new" class="registerbtn" role="button" aria-pressed="true">Post departments news</a></p>
-            <hr>
-            <div class="form-group">
-                <label for="title"><b>Title</b></label>
-                <input type="text" placeholder="Enter title" name="title" id="title" required>
+            <p><a href="/create/departmentnews" class="registerbtn" role="button" aria-pressed="true">Post departments news</a></p>
+            <div class="row">
+                <div class="col-25">
+                    <label for="title"><b>Title</b></label>
+                </div>
+                <div class="col-75">
+                    <input type="text" placeholder="Enter title" name="title" id="title" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="content"><b>Content</b></label>
-                <textarea id="content" name="content" placeholder="Write your news.."></textarea>
+            <div class="row">
+                <div class="col-25">
+                    <label for="content"><b>Content</b></label>
+                </div>
+                <div class="col-75">
+                    <textarea id="content" class="input" name="content" placeholder="Write your news.." style="height:200px"></textarea>
+                </div>
             </div>
-            <hr>
+            <div class="row">
+                <div class="col-25">
+                    <label for="user">User</label>
+                </div>
+                <div class="col-75">
+                    <select class="custom-select" id="user" name="user">
+                        <option selected>Choose</option>
+                            {{#if users}}
+                                {{#each users as |e|}}
+                                    <option name="user" value={{e.id}}>{{e.name}}</option>
+                                {{/each}}
+                            {{/if}}
+                    </select>
+                </div>
+            </div>
             <button type="submit" class="registerbtn">Post</button>
-        </div>
-    </form>
+        </form>
+    </div>
 {{/partial}}
 {{> layout.hbs}}

@@ -2,7 +2,7 @@ package models;
 
 import java.util.Objects;
 
-public class Users {
+public class User {
 
     private static int id;
     private String name;
@@ -10,7 +10,7 @@ public class Users {
     private String position;
     private int department_id;
 
-    public Users(String name, String role, String position){
+    public User(String name, String role, String position){
         this.name = name;
         this.position = position;
         this.role = role;
@@ -18,7 +18,7 @@ public class Users {
         this.department_id = department_id;
     }
 
-    public Users(String name, String role, String position, int department_id){
+    public User(String name, String role, String position, int department_id){
         this.name=name;
         this.role=role;
         this.position=position;
@@ -62,17 +62,17 @@ public class Users {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Users)) return false;
-        Users users = (Users) o;
-        return id == users.id &&
-                department_id == users.department_id &&
-                Objects.equals(position, users.position) &&
-                Objects.equals(role, users.role) &&
-                Objects.equals(name, users.name);
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                department_id == user.department_id &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(position, user.position) &&
+                Objects.equals(role, user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, position, role, name, department_id);
+        return Objects.hash(id, name, position, role, department_id);
     }
 }

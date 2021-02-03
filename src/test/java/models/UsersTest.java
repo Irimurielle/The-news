@@ -7,7 +7,7 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class UsersTest {
+public class UserTest {
     @Before
     public void setUp() throws Exception {
     }
@@ -18,52 +18,52 @@ public class UsersTest {
 
     @Test
     public void getNameReturnsCorrectName() throws Exception {
-        Users testUsers = setUpUser();
-        assertEquals("Merry Karangwa", testUsers.getName());
+        User testUser = setUpUser();
+        assertEquals("Merry Karangwa", testUser.getName());
     }
 
     @Test
     public void getRoleReturnsUserRole() throws Exception {
-        Users testUsers = setUpUser();
-        assertEquals("Directing the company", testUsers.getRole());
+        User testUser = setUpUser();
+        assertEquals("Directing the company", testUser.getRole());
     }
 
     @Test
     public void getPositionReturnsUserPosition() throws Exception{
-        Users testUsers = setUpUser();
-        assertEquals("Deputy Director", testUsers.getPosition());
+        User testUser = setUpUser();
+        assertEquals("Deputy Director", testUser.getPosition());
     }
 
     @Test
     public void setNameSetsCorrectName() throws Exception{
-        Users testUsers = setUpUser();
-        testUsers.setName("Mukamana Adeline");
-        assertNotEquals("Merry Karangwa", testUsers.getName());
+        User testUser = setUpUser();
+        testUser.setName("Mukamana Adeline");
+        assertNotEquals("Merry Karangwa", testUser.getName());
     }
 
     @Test
     public void setRoleSetsUserRole() throws Exception{
-        Users testUsers = setUpUser();
-        testUsers.setRole("Directing the company");
-        assertNotEquals("Recruiting employees", testUsers.getRole());
+        User testUser = setUpUser();
+        testUser.setRole("Directing the company");
+        assertNotEquals("Recruiting employees", testUser.getRole());
     }
 
     @Test
     public void setPositionSetsUserPosition() throws  Exception{
-        Users testUsers = setUpUser();
-        testUsers.setPosition("Deputy Director");
-        assertNotEquals("Human Resource Manager", testUsers.getPosition());
+        User testUser = setUpUser();
+        testUser.setPosition("Deputy Director");
+        assertNotEquals("Human Resource Manager", testUser.getPosition());
     }
 
     @Test
     public void setDepartmentIdSetsDepartmentId() {
-        Users testUsers = setUpUser();
-        testUsers.setDepartment_id(1);
-        assertNotEquals(2, testUsers.getDepartment_id());
+        User testUser = setUpUser();
+        testUser.setDepartment_id(1);
+        assertNotEquals(2, testUser.getDepartment_id());
     }
 
-    private Users setUpUser() {
-        return new Users("Merry Karangwa","Directing the company","Deputy Director",1);
+    private User setUpUser() {
+        return new User("Merry Karangwa","Directing the company","Deputy Director",1);
     }
 
 }

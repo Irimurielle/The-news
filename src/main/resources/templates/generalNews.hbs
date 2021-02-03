@@ -6,16 +6,12 @@
                     <div class="col-sm-4 col-sm-offset-4 generalnews">
                         <h3 class="text-center">General News:</h3>
                             {{#if generalnews}}
-                                {{#each generalnews}}
-                                    <p>{{generalnews.title}}</p>
-                                    <p>{{generalnews.content}}</p>
+                                {{#each generalnews as |e|}}
+                                    <h4 id={{e.id}}>{{e.title}}</h4>
+                                    <p id={{e.id}}>{{e.content}}</p>
                                 {{/each}}
-                                <p>User</p>
-                                    {{#each users}}
-                                        <p>{{users.name}}</p>
-                                    {{/each}}
                             {{/if}}
-                        <a href="/generalnews/new"><button type="button" class="registerbtn">Post News</button></a>
+                        <a href="/create/generalnews"><button type="button" class="registerbtn">Post News</button></a>
                     </div>
                 </div>
             </div>

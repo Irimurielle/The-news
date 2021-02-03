@@ -6,12 +6,12 @@
                     <div class="col-sm-4 col-sm-offset-4 departments">
                         <h3 class="text-center">Departments:</h3>
                             {{#if departments}}
-                                {{#each departments as |l|}}
-                                    <h5>{{l.name}}</h5>
-                                    <p>{{l.description}}</p>
+                                {{#each departments as |e|}}
+                                    <h4 id={{e.id}}>{{e.name}}</h4>
+                                    <p id={{e.id}}>{{e.description}}</p>
                                 {{/each}}
                             {{/if}}
-                        <a href="/departments/new"><button type="button" class="registerbtn">Add Departments</button></a>
+                        <a href="/create/department"><button type="button" class="registerbtn">Add Departments</button></a>
                     </div>
                 </div>
             </div>
